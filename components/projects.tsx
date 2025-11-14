@@ -181,13 +181,6 @@ export function Projects() {
     return "프로젝트"
   }
 
-  const getPdfBadgeText = (project: (typeof projectsInfo.projects)[number]) =>
-  project.pdf
-    ? "PDF 리포트"
-    : project.video
-    ? "미디어 뷰"
-    : "이미지 확대"
-
   // A4 / PPT 비율 결정 로직
   const isA4Project = (
     project: (typeof projectsInfo.projects)[number],
@@ -226,7 +219,7 @@ export function Projects() {
           saveData("projects-info", updatedProjectsInfo)
         }}
         storageKey="projects-background"
-        className="relative py-20 bg-neutral-50"
+        className="relative py-28 bg-neutral-50"
       >
         <section
           id="projects"
@@ -245,15 +238,14 @@ export function Projects() {
                   <span className="inline-block h-1.5 w-1.5 bg-slate-700" />
                   Project Portfolio
                 </div>
-                <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
-                  <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-600 bg-clip-text text-transparent">
-                    <EditableText
-                      value={projectsInfo.title}
-                      onChange={(value) => updateProjectsInfo("title", value)}
-                      storageKey="projects-title"
-                    />
-                  </span>
-                </h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground">
+  <EditableText
+    value={projectsInfo.title}
+    onChange={(value) => updateProjectsInfo("title", value)}
+    storageKey="projects-title"
+  />
+</h2>
+
                 <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">
                   <EditableText
                     value={projectsInfo.subtitle}
@@ -266,36 +258,18 @@ export function Projects() {
                 </p>
               </div>
 
-              {/* 우측 상단 요약/컨트롤 */}
-              <div className="flex flex-col items-start md:items-end gap-2 text-xs sm:text-sm text-muted-foreground">
-                <div className="inline-flex items-center gap-2 border border-slate-200 bg-white/80 px-3 py-1 rounded-none">
-                  <span className="font-medium text-slate-700">
-                    총 {validProjects.length}개 프로젝트
-                  </span>
-                  <span className="h-1 w-1 bg-slate-300" />
-                  <span>
-                    처음{" "}
-                    <span className="font-medium">
-                      {projectsInfo.initialDisplay}
-                    </span>
-                    개 노출 ·{" "}
-                    <span className="font-medium">
-                      {projectsInfo.loadMoreCount}
-                    </span>
-                    개씩 더보기
-                  </span>
-                </div>
-
-                {isEditMode && (
-                  <button
-                    onClick={() => setShowDisplaySettings(true)}
-                    className="inline-flex items-center gap-1 border border-dashed border-slate-300 bg-white/70 px-3 py-1 text-[11px] font-medium text-slate-600 hover:border-slate-500 hover:bg-slate-50 transition-all rounded-none"
-                  >
-                    <LayoutGrid className="h-3 w-3" />
-                    리스트 노출 설정
-                  </button>
-                )}
-              </div>
+              {/* 우측 상단 컨트롤 (요약 텍스트 제거) */}
+<div className="flex flex-col items-start md:items-end gap-2 text-xs sm:text-sm text-muted-foreground">
+  {isEditMode && (
+    <button
+      onClick={() => setShowDisplaySettings(true)}
+      className="inline-flex items-center gap-1.5 border border-dashed border-slate-300 bg-white/70 px-3 py-1 text-[11px] font-medium text-slate-600 hover:border-slate-500 hover:bg-slate-50 transition-all rounded-none"
+    >
+      <LayoutGrid className="h-3 w-3" />
+      리스트 노출 설정
+    </button>
+  )}
+</div>
             </div>
 
             {/* 프로젝트가 없을 때 */}
@@ -326,7 +300,6 @@ export function Projects() {
                 >
                   {visibleProjects.map((project, index) => {
                     const tag = getProjectTag(project.title)
-                    const pdfBadge = getPdfBadgeText(project)
                     const aspectClass = getAspectClass(project, index)
                     const pdfPath = (project as any).pdf as string | undefined
 
@@ -388,31 +361,12 @@ export function Projects() {
                             <span className="inline-flex items-center bg-black/70 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm rounded-none">
                               {tag}
                             </span>
-                            {pdfPath && (
-                              <span className="inline-flex items-center bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-800 backdrop-blur-sm rounded-none">
-                                PDF 리포트
-                              </span>
-                            )}
                           </div>
-
-                          {/* 하단 그라데이션 + 안내 텍스트 (뷰 모드에서만) */}
-                          {!isEditMode && (
-                            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/65 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end">
-                              <div className="w-full px-4 pb-3 flex items-center justify-between gap-2 text-[11px] text-slate-100">
-                                <span className="truncate">
-                                  {project.title || "프로젝트 보기"}
-                                </span>
-                                <span className="inline-flex items-center bg-white/15 px-2 py-1 backdrop-blur-sm rounded-none">
-                                  {pdfBadge} 열기
-                                </span>
-                              </div>
-                            </div>
-                          )}
                         </div>
 
                         {/* 텍스트 영역 */}
                         <div className="flex flex-col flex-1 px-4 py-3.5">
-                          <h3 className="text-sm sm:text-[15px] font-semibold text-slate-900 mb-1.5 line-clamp-2">
+                          <h3 className="text-sm sm:text-[15px] font-semibold text-slate-900 mb-3 line-clamp-2">
                             <EditableText
                               value={project.title || "프로젝트 제목"}
                               onChange={(value) =>
@@ -433,16 +387,7 @@ export function Projects() {
                           </p>
 
                           {/* 하단 메타라인 */}
-                          <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400">
-                            <span className="inline-flex items-center gap-1">
-                              <span className="h-1 w-1 bg-slate-300" />
-                              <span>{pdfBadge}</span>
-                            </span>
-                            <span className="inline-flex items-center gap-1">
-                              <span className="h-1 w-1 bg-slate-300" />
-                              <span>클릭하여 상세 보기</span>
-                            </span>
-                          </div>
+                          
                         </div>
                       </article>
                     )
