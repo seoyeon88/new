@@ -234,11 +234,9 @@ export function Projects() {
             {/* 섹션 헤더 */}
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-10">
               <div>
-                <div className="inline-flex items-center gap-2 border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500 rounded-none">
-                  <span className="inline-block h-1.5 w-1.5 bg-slate-700" />
-                  Project Portfolio
-                </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground">
+                
+              <h2 className="mt-7 text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
+
   <EditableText
     value={projectsInfo.title}
     onChange={(value) => updateProjectsInfo("title", value)}
@@ -366,7 +364,7 @@ export function Projects() {
 
                         {/* 텍스트 영역 */}
                         <div className="flex flex-col flex-1 px-4 py-3.5">
-                          <h3 className="text-sm sm:text-[15px] font-semibold text-slate-900 mb-3 line-clamp-2">
+                          <h3 className="text-sm sm:text-[11px] font-semibold text-slate-900 mb-5 line-clamp-2">
                             <EditableText
                               value={project.title || "프로젝트 제목"}
                               onChange={(value) =>
