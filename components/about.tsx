@@ -436,71 +436,78 @@ export function About() {
       </div>
 
       {aboutInfo.experienceCards?.map((card, index) => {
-        const Icon =
-          AVAILABLE_ICONS[card.icon as keyof typeof AVAILABLE_ICONS] ||
-          Briefcase
-        return (
-          <Card
-            key={index}
-            className="relative border border-border/70 bg-background/95 px-5 py-4 shadow-sm transition-all rounded-none 
-                       hover:shadow-md hover:border-primary/50 hover:bg-primary/5"
-          >
-            {/* 좌측 컬러 바 */}
-            <div className="absolute inset-y-3 left-0 w-[3px] bg-primary/80" />
+  const Icon =
+    AVAILABLE_ICONS[card.icon as keyof typeof AVAILABLE_ICONS] || Briefcase
 
-            {isEditMode && (
-              <button
-                onClick={() => removeExperienceCard(index)}
-                className={COMMON_STYLES.deleteButton}
-              >
-                <X className={COMMON_STYLES.deleteIcon} />
-              </button>
-            )}
+  return (
+    <Card
+      key={index}
+      className="relative overflow-hidden border border-border/70 bg-background/95 px-5 py-4 shadow-sm rounded-none
+                 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/40 transition-all"
+    >
+      {/* 좌측 그라데이션 라인 */}
+      <div className="absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-primary/80 via-primary/50 to-primary/20" />
 
-            <div className="flex items-start gap-4 pl-1.5">
-              <div className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
-                <Icon className="h-5 w-5 text-primary" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center justify-between gap-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-muted-foreground/80">
-                      #{(index + 1).toString().padStart(2, "0")}
-                    </span>
-                    <h4 className="text-sm font-semibold text-foreground">
-                      <EditableText
-                        value={card.title}
-                        onChange={(value) =>
-                          updateExperienceCard(index, "title", value)
-                        }
-                        storageKey={`about-experience-${index}-title`}
-                      />
-                    </h4>
-                  </div>
-                  <p className="text-[11px] font-medium text-muted-foreground">
-                    <EditableText
-                      value={card.period}
-                      onChange={(value) =>
-                        updateExperienceCard(index, "period", value)
-                      }
-                      storageKey={`about-experience-${index}-period`}
-                    />
-                  </p>
-                </div>
-                <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  <EditableText
-                    value={card.description}
-                    onChange={(value) =>
-                      updateExperienceCard(index, "description", value)
-                    }
-                    storageKey={`about-experience-${index}-description`}
-                  />
-                </p>
-              </div>
+      {isEditMode && (
+        <button
+          onClick={() => removeExperienceCard(index)}
+          className={COMMON_STYLES.deleteButton}
+        >
+          <X className={COMMON_STYLES.deleteIcon} />
+        </button>
+      )}
+
+      <div className="flex items-start gap-4 pl-3">
+        {/* 아이콘 영역 살짝 키우기 */}
+        <div className="mt-0.5 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-primary/8">
+          <Icon className="h-5 w-5 text-primary" />
+        </div>
+
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono text-muted-foreground/80">
+                #{(index + 1).toString().padStart(2, "0")}
+              </span>
+              {/* ✅ 카드 타이틀: 중간 크기(text-base)로 통일 */}
+              <h4 className="text-base font-semibold text-foreground">
+                <EditableText
+                  value={card.title}
+                  onChange={(value) =>
+                    updateExperienceCard(index, "title", value)
+                  }
+                  storageKey={`about-experience-${index}-title`}
+                />
+              </h4>
             </div>
-          </Card>
-        )
-      })}
+
+            {/* ✅ 기간: 소 텍스트 */}
+            <p className="text-sm font-medium text-muted-foreground">
+              <EditableText
+                value={card.period}
+                onChange={(value) =>
+                  updateExperienceCard(index, "period", value)
+                }
+                storageKey={`about-experience-${index}-period`}
+              />
+            </p>
+          </div>
+
+          {/* ✅ 설명: text-sm 로 통일 */}
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+            <EditableText
+              value={card.description}
+              onChange={(value) =>
+                updateExperienceCard(index, "description", value)
+              }
+              storageKey={`about-experience-${index}-description`}
+            />
+          </p>
+        </div>
+      </div>
+    </Card>
+  )
+})}
 
       {isEditMode && (
         <button
@@ -527,56 +534,60 @@ export function About() {
         </div>
 
         {aboutInfo.skills.map((skill, index) => {
-          const Icon =
-            SKILL_ICONS[skill.icon as keyof typeof SKILL_ICONS] || Trophy
-          return (
-            <Card
-              key={index}
-              className="relative border border-border/70 bg-muted/70 px-5 py-4 shadow-sm rounded-none 
-                         hover:bg-muted/90 hover:border-primary/40 transition-all"
-            >
-              {isEditMode && (
-                <button
-                  onClick={() => removeSkill(index)}
-                  className={COMMON_STYLES.deleteButton}
-                >
-                  <X className={COMMON_STYLES.deleteIcon} />
-                </button>
-              )}
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-background">
-                  <Icon className="h-4 w-4 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <h4 className="text-sm font-semibold text-foreground">
-                      <EditableText
-                        value={skill.title}
-                        onChange={(value) =>
-                          updateSkill(index, "title", value)
-                        }
-                        storageKey={`about-skill-${index}-title`}
-                      />
-                    </h4>
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
-                      SKILL {(index + 1).toString().padStart(2, "0")}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    <EditableText
-                      value={skill.description}
-                      onChange={(value) =>
-                        updateSkill(index, "description", value)
-                      }
-                      storageKey={`about-skill-${index}-description`}
-                      multiline
-                    />
-                  </p>
-                </div>
-              </div>
-            </Card>
-          )
-        })}
+  const Icon =
+    SKILL_ICONS[skill.icon as keyof typeof SKILL_ICONS] || Trophy
+
+  return (
+    <Card
+      key={index}
+      className="relative overflow-hidden border border-border/70 bg-background/95 px-5 py-4 shadow-sm rounded-none
+                 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/40 transition-all"
+    >
+      {isEditMode && (
+        <button
+          onClick={() => removeSkill(index)}
+          className={COMMON_STYLES.deleteButton}
+        >
+          <X className={COMMON_STYLES.deleteIcon} />
+        </button>
+      )}
+      <div className="flex items-start gap-3">
+        {/* 아이콘 박스 */}
+        <div className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-primary/8">
+          <Icon className="h-5 w-5 text-primary" />
+        </div>
+
+        <div className="flex-1">
+          <div className="flex items-center justify-between gap-2">
+            {/* ✅ 스킬 타이틀: text-base */}
+            <h4 className="text-base font-semibold text-foreground">
+              <EditableText
+                value={skill.title}
+                onChange={(value) => updateSkill(index, "title", value)}
+                storageKey={`about-skill-${index}-title`}
+              />
+            </h4>
+            <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/80">
+              SKILL {(index + 1).toString().padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* ✅ 설명: text-sm 통일 */}
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+            <EditableText
+              value={skill.description}
+              onChange={(value) =>
+                updateSkill(index, "description", value)
+              }
+              storageKey={`about-skill-${index}-description`}
+              multiline
+            />
+          </p>
+        </div>
+      </div>
+    </Card>
+  )
+})}
 
         {aboutInfo.skills.length === 0 && !isEditMode && (
           <p className="text-sm text-muted-foreground">
@@ -673,46 +684,52 @@ export function About() {
 
           {/* 취미 & 관심사 – pill는 유지, 카드 톤만 살짝 맞춤 */}
           {(aboutInfo.hobbies.length > 0 || isEditMode) && (
-            <div className="mt-12 mb-32 text-center">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-6">
-                취미 & 관심사
-              </h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {aboutInfo.hobbies.map((hobby, index) => (
-                  <span
-                    key={index}
-                    className="relative group inline-flex items-center border border-border/70 bg-background/95 px-4 py-2 text-xs sm:text-sm text-foreground/80 rounded-full"
-                  >
-                    {isEditMode && (
-                      <button
-                        onClick={() => removeHobby(index)}
-                        className={`${COMMON_STYLES.deleteButton} opacity-0 group-hover:opacity-100 transition-opacity`}
-                      >
-                        <X className={COMMON_STYLES.deleteIcon} />
-                      </button>
-                    )}
-                    <EditableText
-                      value={hobby}
-                      onChange={(value) =>
-                        updateHobby(index, value)
-                      }
-                      storageKey={`about-hobby-${index}`}
-                    />
-                  </span>
-                ))}
+  <div className="mt-16 mb-32 text-center">
+    {/* 섹션 라벨: 소 사이즈 */}
+    <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+      취미 & 관심사
+    </h3>
 
-                {isEditMode && (
-                  <button
-                    onClick={() => setShowHobbyModal(true)}
-                    className="inline-flex items-center border border-dashed border-muted-foreground/40 px-4 py-2 text-xs sm:text-sm text-muted-foreground hover:border-primary hover:bg-primary/5 transition-all rounded-full"
-                  >
-                    <Settings className="mr-1 h-3 w-3" />
-                    취미 편집
-                  </button>
-                )}
-              </div>
-            </div>
+    <p className="mb-6 text-sm text-muted-foreground">
+      일이 아닌 시간에 저를 가장 잘 보여주는 키워드들입니다.
+    </p>
+
+    <div className="flex flex-wrap justify-center gap-4">
+      {aboutInfo.hobbies.map((hobby, index) => (
+        <span
+          key={index}
+          className="relative group inline-flex items-center border border-border/70 bg-background/95 px-5 py-2.5
+                     text-sm sm:text-base text-foreground/90 rounded-full shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+        >
+          {isEditMode && (
+            <button
+              onClick={() => removeHobby(index)}
+              className={`${COMMON_STYLES.deleteButton} opacity-0 group-hover:opacity-100 transition-opacity`}
+            >
+              <X className={COMMON_STYLES.deleteIcon} />
+            </button>
           )}
+          <EditableText
+            value={hobby}
+            onChange={(value) => updateHobby(index, value)}
+            storageKey={`about-hobby-${index}`}
+          />
+        </span>
+      ))}
+
+      {isEditMode && (
+        <button
+          onClick={() => setShowHobbyModal(true)}
+          className="inline-flex items-center border border-dashed border-muted-foreground/40 px-5 py-2.5
+                     text-sm sm:text-base text-muted-foreground hover:border-primary hover:bg-primary/5 transition-all rounded-full"
+        >
+          <Settings className="mr-1 h-4 w-4" />
+          취미 편집
+        </button>
+      )}
+    </div>
+  </div>
+)}
         </div>
       </section>
 

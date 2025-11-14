@@ -234,27 +234,31 @@ export function Projects() {
             {/* 섹션 헤더 */}
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-10">
               <div>
-                
-              <h2 className="mt-7 text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
+  {/* 섹션 상단 작은 라벨 */}
+  <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-black">
+    Project Portfolio
+  </p>
 
-  <EditableText
-    value={projectsInfo.title}
-    onChange={(value) => updateProjectsInfo("title", value)}
-    storageKey="projects-title"
-  />
-</h2>
+  <h2 className="mt-2 text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
+    <EditableText
+      value={projectsInfo.title}
+      onChange={(value) => updateProjectsInfo("title", value)}
+      storageKey="projects-title"
+    />
+  </h2>
 
-                <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">
-                  <EditableText
-                    value={projectsInfo.subtitle}
-                    onChange={(value) =>
-                      updateProjectsInfo("subtitle", value)
-                    }
-                    storageKey="projects-subtitle"
-                    multiline
-                  />
-                </p>
-              </div>
+  <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">
+    <EditableText
+      value={projectsInfo.subtitle}
+      onChange={(value) =>
+        updateProjectsInfo("subtitle", value)
+      }
+      storageKey="projects-subtitle"
+      multiline
+    />
+  </p>
+</div>
+
 
               {/* 우측 상단 컨트롤 (요약 텍스트 제거) */}
 <div className="flex flex-col items-start md:items-end gap-2 text-xs sm:text-sm text-muted-foreground">
@@ -419,7 +423,7 @@ export function Projects() {
                       <ChevronDown className="h-4 w-4" />
                       더 많은 프로젝트 보기
                       <span className="text-xs text-slate-400">
-                        ({validProjects.length - displayCount}개 남음)
+                        
                       </span>
                     </button>
                   </div>
