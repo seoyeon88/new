@@ -2,232 +2,167 @@
 
 import * as React from "react"
 import { useState, useEffect } from "react"
-import { ArrowRight, Download, Mail } from "lucide-react"
-import { EditableText } from "@/components/editable/editable-text"
-import { EditableBackground } from "@/components/editable/editable-background"
-import { useInlineEditor } from "@/contexts/inline-editor-context"
+import { ArrowRight, Download } from "lucide-react"
 
 export function Hero() {
-  const { getData, saveData, isEditMode } = useInlineEditor()
-
-  const defaultInfo = {
-    title: "배서연",
-    subtitle: "부동산 금융 · 자산관리 포트폴리오",
-    description: "데이터 기반 분석과 현장 경험을 바탕으로 오피스, 주거, 개발사업의\n가치를 설계하고 리스크를 관리합니다.",
-    badge: "Real Estate Finance & Asset Management",
-    primaryButtonLabel: "프로젝트 보러가기",
-    secondaryButtonLabel: "Download Resume",
-    mailButtonLabel: "이메일 연락하기"
-  }
-
-  const [heroInfo, setHeroInfo] = useState(defaultInfo)
-  const [backgroundData, setBackgroundData] = useState({
-    image: "",
-    video: "",
-    color: "",
-    opacity: 0.1,
-  })
-
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const saved = getData("hero-info") as typeof defaultInfo | null
-    if (saved) setHeroInfo({ ...defaultInfo, ...saved })
-
-    const savedBg = getData("hero-background") as
-      | { image: string; video: string; color: string; opacity: number }
-      | null
-    if (savedBg) setBackgroundData(savedBg)
-
     const timer = setTimeout(() => {
       setIsVisible(true)
     }, 50)
 
     return () => clearTimeout(timer)
-  }, [isEditMode])
+  }, [])
 
-  const updateHeroInfo = (key: keyof typeof defaultInfo, value: string) => {
-    const next = { ...heroInfo, [key]: value }
-    setHeroInfo(next)
-    saveData("hero-info", next)
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault()
+      const el = document.querySelector(href)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+    }
   }
 
   return (
-    <EditableBackground
-      image={backgroundData.image}
-      video={backgroundData.video}
-      color={backgroundData.color}
-      opacity={backgroundData.opacity}
-      onChange={(data) => {
-        const nextBg = { ...backgroundData, ...data }
-        setBackgroundData(nextBg)
-        saveData("hero-background", nextBg)
-      }}
-      storageKey="hero-background"
-      className="relative"
+    <section
+      id="hero"
+className="relative min-h-[calc(111vh-80px)] flex items-center py-20 sm:py-24 lg:py-28 bg-white"
     >
-      <section
-        id="hero"
-        className="relative overflow-hidden min-h-[calc(100vh-80px)] flex items-center py-16 sm:py-20 lg:py-24"
-      >
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -left-48 top-0 h-72 w-96 rounded-full bg-slate-200/60 blur-3xl" />
-          <div className="absolute bottom-0 -right-48 h-72 w-96 rounded-full bg-blue-100/50 blur-3xl" />
-        </div>
+      {/* 부드러운 라디얼 그라디언트 오버레이 */}
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(148,163,184,0.32),transparent_55%)]" />
+      </div>
 
-        <div className="w-full flex flex-col gap-12 px-6 sm:px-10 lg:px-40 lg:flex-row lg:items-start lg:justify-between">
-          <div
-  className={`max-w-2xl space-y-6 transform transition-all duration-700 ease-out ${
-    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-  } lg:flex-[2]`}
->
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 xl:px-0 flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16 lg:justify-between">
+        {/* 왼쪽: 메인 텍스트 영역 */}
+        <div
+          className={`max-w-xl lg:max-w-2xl space-y-8 transform transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
+          }`}
+        >
 
-            <div className="inline-flex items-center gap-2 rounded-full bg-slate-500/10 px-3 py-1 text-xs font-medium text-primary">
-              <span className="h-2 w-2 rounded-full bg-primary" />
-              <EditableText
-                value={heroInfo.badge}
-                onChange={(v) => updateHeroInfo("badge", v)}
-                storageKey="hero-badge"
-              />
-            </div>
-
-            <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              <span className="bg-gradient-to-r from-primary via-blue-600 to-purple-500 bg-clip-text text-transparent">
-                <EditableText
-                  value={heroInfo.title}
-                  onChange={(v) => updateHeroInfo("title", v)}
-                  storageKey="hero-title"
-                />
-              </span>
-              <span className="mt-6 block text-2xl text-muted-foreground sm:text-3xl">
-                <EditableText
-                  value={heroInfo.subtitle}
-                  onChange={(v) => updateHeroInfo("subtitle", v)}
-                  storageKey="hero-subtitle"
-                />
+          {/* 메인 타이포 */}
+          <div className="space-y-4">
+            <h1 className="text-balance text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-slate-900">
+              <span className="opacity-90 bg-gradient-to-r from-slate-900 via-stone-700 to-slate-900 bg-clip-text text-transparent block
+              tracking-[-0.01em]
+              drop-shadow-[0_1px_1px_rgba(0,0,0,0.10)]">
+  Real Estate
+</span>
+<span className="opacity-90 bg-gradient-to-r from-slate-900 via-stone-700 to-slate-900 bg-clip-text text-transparent block mt-1
+tracking-[-0.01em]
+drop-shadow-[0_1px_1px_rgba(0,0,0,0.10)]">
+  Portfolio
+</span>
+              <span className="mt-4 block text-2xl sm:text-3xl lg:text-[1.9rem] text-slate-600">
+                부동산 자산의 활용도를 높이는 전략을 연구합니다.
               </span>
             </h1>
-
-            <p className="text-pretty text-base text-muted-foreground sm:text-lg whitespace-pre-line">
-              <EditableText
-                value={heroInfo.description}
-                onChange={(v) => updateHeroInfo("description", v)}
-                storageKey="hero-description"
-                multiline
-              />
-            </p>
-
-            <div className="mt-8 space-y-2">
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href={isEditMode ? undefined : "#projects"}
-                  onClick={(e) => {
-                    if (isEditMode) e.preventDefault()
-                  }}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-md shadow-primary/25 transition hover:bg-primary/90"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                  <EditableText
-                    value={heroInfo.primaryButtonLabel}
-                    onChange={(v) => updateHeroInfo("primaryButtonLabel", v)}
-                    storageKey="hero-primaryButton"
-                  />
-                </a>
-
-                <a
-                  href={isEditMode ? undefined : "/Seoyeon_Resume.pdf"}
-                  download={!isEditMode}
-                  onClick={(e) => {
-                    if (isEditMode) e.preventDefault()
-                  }}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition hover:bg-muted/80"
-                >
-                  <Download className="h-4 w-4" />
-                  <EditableText
-                    value={heroInfo.secondaryButtonLabel}
-                    onChange={(v) => updateHeroInfo("secondaryButtonLabel", v)}
-                    storageKey="hero-secondaryButton"
-                  />
-                </a>
-              </div>
-
-              <div className="flex">
-                <a
-                  href={isEditMode ? undefined : "mailto:kimbob206@gmail.com"}
-                  onClick={(e) => {
-                    if (isEditMode) e.preventDefault()
-                  }}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-muted/70"
-                >
-                  <Mail className="h-4 w-4" />
-                  <EditableText
-                    value={heroInfo.mailButtonLabel}
-                    onChange={(v) => updateHeroInfo("mailButtonLabel", v)}
-                    storageKey="hero-mailButton"
-                  />
-                </a>
-              </div>
-            </div>
+            {/* 기존 설명 문단(부동산 자산의 활용도를...)은 제거함 */}
           </div>
 
-          <div
-  className={`w-full max-w-xl lg:mt-13 transform transition-all duration-700 ease-out ${
-    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-  }`}
-  style={{ transitionDelay: isVisible ? "0.4s" : "0s" }}
->
-            <div className="flex flex-col items-stretch gap-10 lg:flex-row lg:items-center">
-              <div className="flex-1 space-y-7">
-                <div className="rounded-none border border-border/80 bg-background/80 p-6 shadow-md backdrop-blur-sm">
-  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-    Core Focus
-  </p>
-  <ul className="space-y-1.5 text-xs text-foreground">
-    <li>• 오피스·상업시설 PF 및 IM 작성</li>
-    <li>• 수익성 분석(DCF, IRR, NOI, Cap-rate)</li>
-    <li>• 경매·권리분석 및 리스크 검토</li>
-  </ul>
-</div>
+          {/* CTA 버튼들 */}
+          <div className="space-y-4 pt-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#projects"
+                onClick={(e) => handleSectionClick(e, "#projects")}
+                className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-7 py-3.5 text-[15px] font-medium text-slate-50 shadow-sm transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/70"
+              >
+                <ArrowRight className="h-4 w-4" />
+                프로젝트 보러가기
+              </a>
 
-                <div className="rounded-none border border-border/60 bg-gradient-to-br from-slate-300/10 via-background to-muted/30 p-4 shadow-md backdrop-blur-sm">
-  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-    Keywords
-                  </p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="rounded-full bg-background/70 px-3 py-1">
-                      #Real Estate Finance
-                    </span>
-                    <span className="rounded-full bg-background/70 px-3 py-1">
-                      #Asset Management
-                    </span>
-                    <span className="rounded-full bg-background/70 px-3 py-1">
-                      #PF·개발사업 수지분석
-                    </span>
-                    <span className="rounded-full bg-background/70 px-3 py-1">
-                      #데이터 기반 의사결정
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div
-  className={`flex justify-center lg:justify-end transform transition-all duration-700 ease-out ${
-    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-  }`}
->
-  <div className="w-[170px] sm:w-[180px] max-w-[40vw] rounded-none overflow-hidden border border-border/60 shadow-md bg-background">
-    <img
-      src="/profile.jpg"
-      alt="배서연 프로필 사진"
-      className="w-full h-auto object-contain"
-    />
-  </div>
-</div>
-
+              <a
+                href="/Seoyeon_Resume.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300/90 bg-white/80 px-7 py-3.5 text-[15px] font-medium text-slate-800 backdrop-blur-sm shadow-sm transition hover:bg-slate-50 hover:border-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
+              >
+                <Download className="h-4 w-4" />
+                Download Resume
+              </a>
             </div>
           </div>
         </div>
-      </section>
-    </EditableBackground>
+
+        {/* 오른쪽: 프로필 카드 + 역량 요약 */}
+        <div
+  className={`w-full max-w-md lg:max-w-sm xl:max-w-md transform scale-87 transition-all duration-700 ease-out ${
+    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+  } lg:absolute`}
+  style={{
+    transitionDelay: isVisible ? "0.25s" : "0s",
+    right: "-60px",  // 👉 여기 숫자 마음대로 조절해서 오른쪽으로 이동량 컨트롤
+    top: "-70px",    // 👉 위/아래 위치도 여기서 마음대로 조정
+  }}
+>
+
+<div className="relative rounded-3xl border border-slate-200/80 bg-white/80 pl-12 pr-6 py-6 shadow-md backdrop-blur-sm">
+            {/* 상단 프로필 */}
+            <div className="flex items-center gap-4">
+              <div className="relative w-[96px] h-[112px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 mr-2">
+  <img
+    src="/profile.jpg"
+    alt="배서연 프로필 사진"
+    className="w-full h-full object-cover"
+  />
+</div>
+
+              <div className="space-y-1 self-center pl-1.5">
+  <p className="text-2xl sm:text-3xl font-semibold tracking-widest text-slate-900 mt-2 mb-2">
+    배서연
+  </p>
+  <p className="text-sm sm:text-base text-slate-500 tracking-wide">
+    단국대학교 도시계획·부동산학부
+  </p>
+</div>
+
+            </div>
+
+            {/* 구분선 */}
+            <div className="my-5 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+            {/* 코어 포커스 + 키워드 */}
+            <div className="mt-6 space-y-4">
+              <div className="mb-8">
+                <p className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+  Core Focus
+</p>
+<ul className="space-y-1.5 text-sm sm:text-[15px] text-slate-800">
+                  <li>• 오피스·상업시설 PF 및 IM 작성</li>
+                  <li>• 수익성 분석 (DCF, IRR, NOI, Cap-rate)</li>
+                  <li>• 경매·권리분석 및 리스크 검토</li>
+                </ul>
+              </div>
+
+              <div className="mt-4">
+                <p className="mb-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+  Keywords
+</p>
+<div className="flex flex-wrap gap-1.5 text-xs sm:text-sm">
+                  <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1">
+                    # Real Estate Finance
+                  </span>
+                  <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1">
+                    # Asset Management
+                  </span>
+                  <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1">
+                    # PF·개발사업 수지분석
+                  </span>
+                  <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1">
+                    # 데이터 기반 의사결정
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 하단 여백 (카드 높이 유지용) */}
+            <div className="mt-2 h-4" />
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }

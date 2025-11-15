@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { InlineEditorProvider } from "@/contexts/inline-editor-context"
 import { SiteTitle } from "@/components/site-title"
+import { Footer } from "@/components/footer"
 import { getMetadata } from "@/lib/metadata"
 import "./globals.css"
 
@@ -63,23 +64,29 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" 
         />
-        {/* 카카오톡 공유 최적화 */}
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </head>
-      <body className="font-pretendard" suppressHydrationWarning>
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="system" 
-          enableSystem
-          disableTransitionOnChange
-        >
-          <InlineEditorProvider>
-            <SiteTitle />
-            {children}
-          </InlineEditorProvider>
-        </ThemeProvider>
-      </body>
+      
+<body className="min-h-screen flex flex-col font-pretendard bg-slate-50" suppressHydrationWarning>
+  <ThemeProvider 
+    attribute="class" 
+    defaultTheme="system" 
+    enableSystem
+    disableTransitionOnChange
+  >
+    <InlineEditorProvider>
+      <SiteTitle />
+
+      <main className="flex-1">
+        {children}
+      </main>
+
+      <Footer />
+    </InlineEditorProvider>
+  </ThemeProvider>
+</body>
+
     </html>
   )
 }
