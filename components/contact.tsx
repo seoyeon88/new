@@ -250,11 +250,11 @@ export function Contact() {
                 </a>
 
                 {/* 구분선 */}
-                <div className="border-t border-slate-200/70 pt-5" />
+                <div className="border-t border-slate-200/70" />
 
                 {/* 소셜 아이콘 스트립 */}
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm sm:text-[16px] font-semibold text-slate-700 ml-1 sm:ml-0">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm sm:text-[16px] font-semibold text-slate-700 ml-1 sm:ml-2.5">
                     Social Channels
                   </p>
                   <div className="flex items-center gap-2.5">
