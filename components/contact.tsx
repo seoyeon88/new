@@ -60,7 +60,7 @@ export function Contact() {
   // 기본 데이터
   const defaultInfo = {
     name: "배서연",
-    title: "단국대학교 재학",
+    title: "단국대학교 도시계획·부동산학부",
     company: "",
     experience: "Junior",
     phone: "010-3246-8533",

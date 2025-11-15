@@ -77,10 +77,11 @@ export function Hero() {
 
         <div className="w-full flex flex-col gap-12 px-6 sm:px-10 lg:px-40 lg:flex-row lg:items-start lg:justify-between">
           <div
-            className={`max-w-2xl space-y-6 transform transition-all duration-700 ease-out ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-            }`}
-          >
+  className={`max-w-2xl space-y-6 transform transition-all duration-700 ease-out ${
+    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+  } lg:flex-[2]`}
+>
+
             <div className="inline-flex items-center gap-2 rounded-full bg-slate-500/10 px-3 py-1 text-xs font-medium text-primary">
               <span className="h-2 w-2 rounded-full bg-primary" />
               <EditableText
@@ -170,27 +171,27 @@ export function Hero() {
           </div>
 
           <div
-            className={`w-full max-w-xl lg:mt-13 transform transition-all duration-700 ease-out ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-            }`}
-            style={{ transitionDelay: isVisible ? "0.4s" : "0s" }}
-          >
-            <div className="flex flex-col items-stretch gap-8 lg:flex-row lg:items-center">
+  className={`w-full max-w-xl lg:mt-13 transform transition-all duration-700 ease-out ${
+    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+  }`}
+  style={{ transitionDelay: isVisible ? "0.4s" : "0s" }}
+>
+            <div className="flex flex-col items-stretch gap-10 lg:flex-row lg:items-center">
               <div className="flex-1 space-y-7">
-                <div className="rounded-none border border-border/80 bg-background/80 p-5 shadow-lg backdrop-blur-sm">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Core Focus
-                  </p>
-                  <ul className="space-y-1.5 text-sm text-foreground">
-                    <li>• 오피스·상업시설 PF 및 IM 작성</li>
-                    <li>• 수익성 분석(DCF, IRR, NOI, Cap-rate)</li>
-                    <li>• 경매·권리분석 및 리스크 검토</li>
-                  </ul>
-                </div>
+                <div className="rounded-none border border-border/80 bg-background/80 p-6 shadow-md backdrop-blur-sm">
+  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+    Core Focus
+  </p>
+  <ul className="space-y-1.5 text-xs text-foreground">
+    <li>• 오피스·상업시설 PF 및 IM 작성</li>
+    <li>• 수익성 분석(DCF, IRR, NOI, Cap-rate)</li>
+    <li>• 경매·권리분석 및 리스크 검토</li>
+  </ul>
+</div>
 
-                <div className="rounded-none border border-border/60 bg-gradient-to-br from-slate-300/10 via-background to-muted/30 p-5 shadow-md backdrop-blur-sm">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Keywords
+                <div className="rounded-none border border-border/60 bg-gradient-to-br from-slate-300/10 via-background to-muted/30 p-4 shadow-md backdrop-blur-sm">
+  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+    Keywords
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
                     <span className="rounded-full bg-background/70 px-3 py-1">
@@ -210,18 +211,18 @@ export function Hero() {
               </div>
 
               <div
-                className={`flex justify-center lg:justify-end transform transition-all duration-700 ease-out ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-              >
-                <div className="w-[210px] max-w-[60vw] rounded-none overflow-hidden border border-border/60 shadow-md bg-background">
-                  <img
-                    src="/profile.jpg"
-                    alt="배서연 프로필 사진"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              </div>
+  className={`flex justify-center lg:justify-end transform transition-all duration-700 ease-out ${
+    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+  }`}
+>
+  <div className="w-[170px] sm:w-[180px] max-w-[40vw] rounded-none overflow-hidden border border-border/60 shadow-md bg-background">
+    <img
+      src="/profile.jpg"
+      alt="배서연 프로필 사진"
+      className="w-full h-auto object-contain"
+    />
+  </div>
+</div>
 
             </div>
           </div>
