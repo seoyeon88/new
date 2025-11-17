@@ -1,5 +1,3 @@
-// Updated About component with requested changes + animations
-
 "use client"
 
 import * as React from "react"
@@ -12,6 +10,8 @@ import {
   BarChart3,
   Users,
   Rocket,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -30,7 +30,13 @@ const EXPERIENCES = [
   },
   {
     icon: Award,
-    title: "경매 권리분석보고서 우수상",
+    title: "학년수석 달성",
+    period: "2024.03 ~ 2024.12",
+    description: "2학년 1 · 2학기 연속 석차 1위",
+  },
+  {
+    icon: Award,
+    title: "경매 권리분석보고서 우수상 수상",
     period: "2025.01",
     description: "건국대 · 단국대 · 중앙대 연합 학술제",
   },
@@ -44,11 +50,11 @@ const EXPERIENCES = [
     icon: Briefcase,
     title: "금융직무 특화 교육 이수",
     period: "2025.09",
-    description: "타임금융교육원 부동산운용 교육 이수",
+    description: "타임금융교육원 부동산운용 교육",
   },
   {
     icon: Star,
-    title: "서울부동산포럼 장학생",
+    title: "서울부동산포럼 장학생 선정",
     period: "2025.11",
     description: "제13회 우수 장학생 선정",
   },
@@ -57,34 +63,57 @@ const EXPERIENCES = [
 const SKILLS = [
   {
     icon: BarChart3,
-    title: "데이터 기반 수익성 분석",
+    title: "Financial Modeling",
     description:
-      "DCF, NOI, Cap-rate를 활용해 프로젝트의 현금흐름과 수익 구조를 숫자로 설계합니다.",
+      "DCF, IRR/NPV, Cap-rate, NOI 모델링, PF 시나리오 분석을 통해 자산의 현금흐름과 수익 구조를 정교한 숫자로 설계합니다.",
   },
   {
     icon: Users,
-    title: "프로젝트 협업·커뮤니케이션",
+    title: "Real Estate Analysis",
     description:
-      "학술제·케이스 스터디·실무 프로젝트에서 역할을 조율하고, 결과물을 끝까지 책임집니다.",
+      "국토부 실거래가·토지이음·개별공시지가·건축물대장 등 공공데이터를 활용해 입지·수요·임대차 구조를 분석하고, 말소기준권리 등 리스크 요소를 검토합니다.",
   },
   {
     icon: Rocket,
-    title: "실행력 중심의 업무 스타일",
+    title: "PF Documentation",
     description:
-      "목표를 쪼개서 우선순위를 세우고, 측정 가능한 결과로 연결되는 액션을 빠르게 실행합니다.",
+      "IM·시장 리서치·PERT/CPM 일정 분석 등 의사결정에 필요한 보고서를 체계적으로 제작합니다.",
   },
 ]
 
 const STORY_PARAGRAPHS = [
-  "저는 사람이 머무는 공간과 그 공간이 만들어내는 변화에 깊은 관심을 가지고 있습니다.",
-  "부동산·비즈니스 분야에서 쌓아온 분석 경험은 하나의 프로젝트가 자본, 사람, 도시의 움직임이 맞물리며 만들어지는 결과물임을 이해하게 해주었습니다.",
-  "이를 통해 공간을 좀 더 입체적으로 바라보고, 그 안에 담긴 가능성을 읽어내는 기준을 갖추게 되었습니다.",
-  "앞으로도 변화하는 시장의 흐름을 읽고, 팀과 함께 현실적이면서도 의미 있는 성과를 만들며, 선택한 길에서 확실한 결과를 보여주는 사람이 되고자 합니다.",
+  "상업용 부동산의 가치는 단순히 건물의 크기나 입지로만 결정되지 않는다고 믿습니다.",
+  "대학교 2학년 때 참여한 상업시설 분석 프로젝트에서 저수익 오피스 자산의 임대차 구조를 재배치해 NOI를 개선한 경험이 제 생각을 더 확고하게 만들었습니다.",
+  "이 경험을 계기로, 같은 공간이라도 임대 구조를 재설계하고 운영 방식을 조정하며, 데이터 기반 시나리오를 적용하면 수익성이 완전히 달라질 수 있다는 점에 깊은 매력을 느끼게 되었습니다.",
+  "저는 특히 Excel 모델링, DCF, Cap-rate/NOI 분석 같은 정량분석과, 입지·수요·법규·임대전략을 해석하는 정성분석을 함께 다루는 것을 강점으로 삼고 있습니다.",
+  "앞으로도 변화하는 시장의 흐름을 읽고, 팀과 함께 현실적이면서도 의미 있는 성과를 만들며, 선택한 길에서 확실한 결과를 보여주는 전문가로 성장하고자 합니다.",
 ]
 
 const HOBBIES = ["🎨 전시회 관람", "✈️ 여행", "🎭 연극 관람", "🗣️ 영어 스피치 트레이닝"]
 
 const STORY_IMAGE = "/uploads/about-image-1763032621623.jpg"
+
+// 👉 장학·수상 증서 슬라이더용 데이터
+const ACHIEVEMENTS = [
+  {
+    title: "경매 권리분석보고서 우수상",
+    subtitle: "건국대 · 단국대 · 중앙대 연합 학술제",
+    period: "2025.01",
+    image: "/uploads/achievement-auction-report.jpg",
+  },
+  {
+    title: "서울부동산포럼 우수 장학생",
+    subtitle: "제13회 서울부동산포럼 장학증서",
+    period: "2025.11",
+    image: "/uploads/achievement-scholarship.jpg",
+  },
+  {
+    title: "2학년 학년수석 장학증서",
+    subtitle: "2학년 1 · 2학기 연속 학년수석",
+    period: "2024.03 ~ 2024.12",
+    image: "/uploads/achievement-top-student.jpg",
+  },
+]
 
 /* ------------------ 애니메이션 variants ------------------ */
 
@@ -109,7 +138,7 @@ const fadeInUpSlow = {
     y: 0,
     transition: {
       delay,
-      duration: 1.1, // ← 여기서 속도 느리게
+      duration: 1.1,
       ease: [0.22, 0.61, 0.36, 1],
     },
   }),
@@ -136,6 +165,79 @@ const listItem = {
       ease: [0.25, 0.8, 0.25, 1],
     },
   },
+}
+
+/* ------------------ Achievements Slider ------------------ */
+
+function AchievementsSlider() {
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
+
+  const scrollBy = (direction: "left" | "right") => {
+    const container = scrollRef.current
+    if (!container) return
+    const amount = container.clientWidth * 0.8
+
+    container.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    })
+  }
+
+  return (
+    <div className="relative">
+      {/* 좌우 네비게이션 버튼 (md 이상에서만 표시) */}
+      <button
+        type="button"
+        onClick={() => scrollBy("left")}
+        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/95 shadow-sm hover:bg-slate-50"
+      >
+        <span className="sr-only">이전</span>
+        <ChevronLeft className="h-4 w-4 text-slate-700" />
+      </button>
+
+      <button
+        type="button"
+        onClick={() => scrollBy("right")}
+        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/95 shadow-sm hover:bg-slate-50"
+      >
+        <span className="sr-only">다음</span>
+        <ChevronRight className="h-4 w-4 text-slate-700" />
+      </button>
+
+      {/* 가로 스크롤 카드 리스트 */}
+      <div
+        ref={scrollRef}
+        className="flex gap-5 sm:gap-6 overflow-x-auto scroll-smooth pb-2 pt-1 pr-2 -mr-2"
+      >
+        {ACHIEVEMENTS.map((item, idx) => (
+          <div
+            key={idx}
+            className="min-w-[220px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px] max-w-xs rounded-2xl border border-slate-200/80 bg-slate-50/80 shadow-[0_10px_25px_rgba(15,23,42,0.06)] overflow-hidden"
+          >
+            <div className="aspect-[4/3] w-full overflow-hidden bg-slate-200">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="px-4 sm:px-5 py-4 sm:py-5">
+              <p className="text-[12px] font-medium text-slate-500 mb-1">
+                {item.period}
+              </p>
+              <h4 className="text-[15px] sm:text-[16px] font-semibold text-slate-900">
+                {item.title}
+              </h4>
+              <p className="mt-1.5 text-[14px] text-slate-600 leading-relaxed">
+                {item.subtitle}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export function About() {
@@ -290,7 +392,7 @@ export function About() {
                 </div>
 
                 <motion.div
-                  className="grid grid-cols-1 gap-4"
+                  className="grid grid-cols-1 gap-5"
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
@@ -308,7 +410,7 @@ export function About() {
                           transition: { type: "spring", stiffness: 260, damping: 20 },
                         }}
                         whileTap={{ scale: 0.99 }}
-                        className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 px-5 py-5 shadow-[0_8px_18px_rgba(15,23,42,0.06)] transition-colors duration-300 hover:border-slate-300"
+                        className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 px-5 py-7 sm:py-8 shadow-[0_8px_18px_rgba(15,23,42,0.06)] transition-colors duration-300 hover:border-slate-300"
                       >
                         <div className="flex items-start gap-3">
                           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/5">
@@ -319,7 +421,7 @@ export function About() {
                             <h4 className="text-[16px] font-semibold text-slate-900">
                               {skill.title}
                             </h4>
-                            <p className="mt-2 text-[15px] text-slate-600 leading-relaxed">
+                            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">
                               {skill.description}
                             </p>
                           </div>
@@ -333,38 +435,66 @@ export function About() {
           </Card>
         </motion.div>
 
+        {/* ------------------ ACHIEVEMENTS (성과/장학) ------------------ */}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fadeInUpSlow}
+          custom={0.1}
+        >
+          <Card className="border border-slate-200/80 bg-white/95 rounded-3xl px-6 sm:px-8 lg:px-10 py-8 sm:py-10 lg:py-12 shadow-[0_18px_40px_rgba(15,23,42,0.06)]">
+            <div className="mb-6 sm:mb-7">
+              <p className="text-lg sm:text-xl font-semibold uppercase tracking-[0.22em] text-slate-500">
+                Achievements
+              </p>
+              <p className="mt-2 text-[14px] sm:text-[15px] text-slate-600">
+                수상 내역과 장학증서를 한눈에 볼 수 있도록 정리한 하이라이트입니다.
+              </p>
+            </div>
+
+            <AchievementsSlider />
+          </Card>
+        </motion.div>
+
         {/* ------------------ ABOUT ME ------------------ */}
-<div>
-  <Card className="mb-16 border border-slate-200/80 bg-white/95 shadow-[0_18px_40px_rgba(15,23,42,0.08)] rounded-3xl overflow-hidden">
-    <div className="grid grid-cols-1 lg:grid-cols-2">
-      <div className="p-8 sm:p-10 lg:p-12">
-        <h3 className="text-2xl sm:text-3xl font-semibold uppercase tracking-[0.22em] text-slate-900">
-          About Me
-        </h3>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fadeInUp}
+          custom={0.12}
+        >
+          <Card className="mb-16 border border-slate-200/80 bg-white/95 shadow-[0_18px_40px_rgba(15,23,42,0.08)] rounded-3xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="p-8 sm:p-10 lg:p-12">
+                <h3 className="text-2xl sm:text-3xl font-semibold uppercase tracking-[0.22em] text-slate-900">
+                  About Me
+                </h3>
 
-        <div className="mt-6 space-y-4">
-          {STORY_PARAGRAPHS.map((text, idx) => (
-            <p
-              key={idx}
-              className="text-[16px] sm:text-[17px] text-slate-600 leading-relaxed"
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-      </div>
+                <div className="mt-6 space-y-4">
+                  {STORY_PARAGRAPHS.map((text, idx) => (
+                    <p
+                      key={idx}
+                      className="text-[16px] sm:text-[17px] text-slate-600 leading-relaxed indent-5 sm:indent-6"
+                    >
+                      {text}
+                    </p>
+                  ))}
+                </div>
+              </div>
 
-      <div className="relative min-h-[260px] sm:min-h-[320px]">
-        <img
-          src={STORY_IMAGE}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/18 via-transparent to-slate-900/5" />
-      </div>
-    </div>
-  </Card>
-</div>
-
+              <div className="relative min-h-[260px] sm:min-h-[320px]">
+                <img
+                  src={STORY_IMAGE}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/18 via-transparent to-slate-900/5" />
+              </div>
+            </div>
+          </Card>
+        </motion.div>
 
         {/* ------------------ 취미 (스크롤 페이드인 + 호버 애니메이션) ------------------ */}
         <motion.div
@@ -373,7 +503,7 @@ export function About() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeInUp}
-          custom={0.12}
+          custom={0.14}
         >
           <h3 className="text-lg sm:text-xl font-semibold uppercase tracking-[0.25em] text-slate-500 mb-7">
             HOBBIES & INTERESTS
@@ -391,11 +521,11 @@ export function About() {
                 key={index}
                 variants={listItem}
                 whileHover={{
-  y: -1.5,
-  scale: 1.015,
-  boxShadow: "0 8px 20px rgba(15,23,42,0.05)", // 훨씬 약한 그림자
-  transition: { type: "spring", stiffness: 260, damping: 20 },
-}}
+                  y: -1.5,
+                  scale: 1.015,
+                  boxShadow: "0 8px 20px rgba(15,23,42,0.05)",
+                  transition: { type: "spring", stiffness: 260, damping: 20 },
+                }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center rounded-full border border-slate-200 bg-white px-6 sm:px-7 py-3 text-[15px] sm:text-[16px] text-slate-700 shadow-sm cursor-default"
               >
