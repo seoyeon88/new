@@ -32,7 +32,7 @@ const EXPERIENCES = [
     icon: Award,
     title: "학년수석 달성",
     period: "2024.03 ~ 2024.12",
-    description: "2학년 1 · 2학기 연속 석차 1위",
+    description: "2학년 1 · 2학기 연속 학년석차 1등",
   },
   {
     icon: Award,
@@ -48,7 +48,7 @@ const EXPERIENCES = [
   },
   {
     icon: Briefcase,
-    title: "금융직무 특화 교육 이수",
+    title: "금융직무특화교육 이수",
     period: "2025.09",
     description: "타임금융교육원 부동산운용 교육",
   },
