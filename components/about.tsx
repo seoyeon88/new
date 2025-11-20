@@ -36,7 +36,7 @@ const EXPERIENCES = [
   },
   {
     icon: Award,
-    title: "경매 권리분석보고서 우수상 수상",
+    title: "경매 권리분석보고서 우수 프로젝트 선정",
     period: "2025.01",
     description: "건국대 · 단국대 · 중앙대 연합 학술제",
   },
@@ -96,22 +96,25 @@ const STORY_IMAGE = "/uploads/about-image-1763032621623.jpg"
 // 👉 장학·수상 증서 슬라이더용 데이터
 const ACHIEVEMENTS = [
   {
-    title: "경매 권리분석보고서 우수상",
-    subtitle: "건국대 · 단국대 · 중앙대 연합 학술제",
-    period: "2025.01",
-    image: "/uploads/achievement-auction-report.jpg",
+    title: "URID 수료증",
+    subtitle: "단국대학교 부동산학회 13기 수료증",
+    period: "2024.12",
+    image: "/urid.png",
   },
   {
-    title: "서울부동산포럼 우수 장학생",
-    subtitle: "제13회 서울부동산포럼 장학증서",
+    title: "금융직무특화교육 수료증",
+    period: "2025.09",
+    image: "/time.png",
+  },
+  {
+    title: "(사)서울부동산포럼 장학증서",
     period: "2025.11",
-    image: "/uploads/achievement-scholarship.jpg",
+    image: "/money.png",
   },
   {
-    title: "2학년 학년수석 장학증서",
-    subtitle: "2학년 1 · 2학기 연속 학년수석",
-    period: "2024.03 ~ 2024.12",
-    image: "/uploads/achievement-top-student.jpg",
+    title: "임장보고서 최우수상 상장",
+    period: "2024.04",
+    image: "/wow.jpg",
   },
 ]
 
@@ -214,7 +217,7 @@ function AchievementsSlider() {
             key={idx}
             className="min-w-[220px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px] max-w-xs rounded-2xl border border-slate-200/80 bg-slate-50/80 shadow-[0_10px_25px_rgba(15,23,42,0.06)] overflow-hidden"
           >
-            <div className="aspect-[4/3] w-full overflow-hidden bg-slate-200">
+            <div className="aspect-[3/4] w-full overflow-hidden">
               <img
                 src={item.image}
                 alt={item.title}
@@ -226,12 +229,9 @@ function AchievementsSlider() {
               <p className="text-[12px] font-medium text-slate-500 mb-1">
                 {item.period}
               </p>
-              <h4 className="text-[15px] sm:text-[16px] font-semibold text-slate-900">
+              <h4 className="text-[15px] sm:text-[16px] font-semibold text-slate-900 mb-4">
                 {item.title}
               </h4>
-              <p className="mt-1.5 text-[14px] text-slate-600 leading-relaxed">
-                {item.subtitle}
-              </p>
             </div>
           </div>
         ))}
@@ -437,7 +437,7 @@ export function About() {
 
         {/* ------------------ ACHIEVEMENTS (성과/장학) ------------------ */}
         <motion.div
-          className="mb-16"
+          className="mb-40"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
@@ -448,9 +448,6 @@ export function About() {
             <div className="mb-6 sm:mb-7">
               <p className="text-lg sm:text-xl font-semibold uppercase tracking-[0.22em] text-slate-500">
                 Achievements
-              </p>
-              <p className="mt-2 text-[14px] sm:text-[15px] text-slate-600">
-                수상 내역과 장학증서를 한눈에 볼 수 있도록 정리한 하이라이트입니다.
               </p>
             </div>
 
